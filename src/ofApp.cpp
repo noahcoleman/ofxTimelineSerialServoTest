@@ -7,8 +7,8 @@ void ofApp::setup(){
     timeline.setLoopType(OF_LOOP_NORMAL); //turns the timeline to loop
     
     //add a tracks, etc
-    timeline.addLFO("myLFO", "myLFO");
-    timeline.addCurves("MyCircleRadius", ofRange(0, 200));
+    timeline.addLFO("xPosition", ofRange(0,ofGetWidth()));
+    timeline.addLFO("yPosition", ofRange(0, ofGetHeight()));
     
     serial.setup("/dev/tty.usbmodem1411",57600);
 
@@ -25,11 +25,16 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     //the value of changingRadius will be different depending on the timeline
-    float changingRadius = timeline.getValue("MyCircleRadius");
-    //use the value for something amazing!
-    ofCircle(ofGetMouseX(), ofGetMouseY(), int(changingRadius));
+    float xPos = timeline.getValue("xPosition");
+    float yPos = timeline.getValue("yPosition");
+    
+    ofCircle(xPos, yPos, 40);
     //don't forget to draw your timeline so you can edit it.
     timeline.draw();
+    
+    cout <<xPos<<", "<<yPos<<endl;
+    
+
 }
 
 //--------------------------------------------------------------
